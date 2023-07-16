@@ -23,8 +23,7 @@ public class DevToolsManager {
     public static void createDriver () {
         final boolean isHeadless = Boolean.parseBoolean (
             Objects.requireNonNullElse (System.getProperty ("headless"), "true"));
-        WebDriverManager.chromedriver ()
-            .setup ();
+        WebDriverManager.chromedriver().setup();
         ChromeOptions options = new ChromeOptions ();
         options.addArguments ("--no-sandbox");
         options.addArguments ("--disable-dev-shm-usage");
@@ -35,6 +34,7 @@ public class DevToolsManager {
         options.addArguments ("--safebrowsing-disable-download-protection");
 
         chromeDriver = new ChromeDriver (options);
+        chromeDriver.manage().window().maximize();
         DevTools chromeDevTools = chromeDriver.getDevTools ();
         chromeDevTools.createSession ();
         chromeDevTools.send (Log.enable ());
